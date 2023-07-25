@@ -13,7 +13,11 @@ spec:
         app: react-docker
     spec:
       containers:
-      - name: react-docker
-        image: mikethemike03/projet-devops
-        ports:
-        - containerPort: 80
+        - name: react-docker1
+          image: mikethemike03/projet-devops
+          ports:
+            - containerPort: 80
+        - name: react-docker2
+          image: mikethemike03/projet-devops
+          ports:
+            - containerPort: 80
