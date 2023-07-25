@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-react-app
+  namespace: argocd # The namespace where Argo CD is installed
+
+spec:
+  project: default # The Argo CD project to associate this application with
+  source:
+    repoURL: https://github.com/MrPinut/Projet-Devops # URL of your React app's source code repository
+    targetRevision: HEAD # The commit, tag, or branch to deploy (e.g., "master", "v1.0.0", "main")
+    path: ./ # The path to the React app directory within the repository
+    helm:
+      # If you're using Helm charts to deploy your React app, specify the chart details here
+
+  destination:
+    server: https://kubernetes.default.svc # URL of your Kubernetes cluster
+    namespace: devops # Namespace where your React app will be deployed
+
+  syncPolicy:
+    automated:
+      prune: true # Set to true if you want Argo CD to remove resources that are no longer defined in the Git repository
+      selfHeal: true # Set to true if you want Argo CD to automatically reconcile drifts in the deployed resources
+
+  # Application settings (optional)
+  project: default # The Argo CD project to associate this application with
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  source:
+    kustomize:
+      images: 
+      - name: mikethemike03/projet-devops # If you're using container images, specify their names here
+        newTag: latest # Set the desired tag for the container image
+      # Add more images as needed
+
+  # Add any other customizations or settings specific to your deployment if necessary
